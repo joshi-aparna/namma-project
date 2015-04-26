@@ -1,0 +1,23 @@
+[[[[[[[ Experiment Number: 1 | Workload Number: 1 ]]]]]]]
+ [200000.0,4000.0,10.5,inputs/profiles/MapReduce_2_1.xml,GOLD]
+11:openstack-micro
+12:openstack-micro
+9:azure-standard
+10:azure-standard
+7:small-aws-us-east-1
+8:small-aws-us-east-1
+5:large-aws-us-east-1
+6:large-aws-us-east-1
+azure-standard :[9, 9]->0 : [16.12, 2.0]
+small-aws-us-east-1 :[7, 7]->0 : [27.69, 0.58]
+openstack-micro :[11, 11]->0 : [116.4, 0.0]
+small-aws-us-east-1: candidate solution: [7, 7] : [27.69, 0.58]
+large-aws-us-east-1 :[5, 5]->0 : [18.87, 1.23]
+large-aws-us-east-1: candidate solution: [5, 5] : [18.87, 1.23]
+azure-standard: candidate solution: [9, 9] : [16.12, 2.0]
+openstack-micro: candidate solution: [11, 11] : [116.4, 0.0]
+openstack-micro: returned solution: [11, 11] : [116.4 seconds, $0.0]
+small-aws-us-east-1: returned solution: [7, 7] : [27.69 seconds, $0.58]
+azure-standard: returned solution: [9, 9] : [16.12 seconds, $2.0]
+large-aws-us-east-1: returned solution: [5, 5] : [18.87 seconds, $1.23]
+Selected Solution: [11, 11] : [116.4, 0.0]

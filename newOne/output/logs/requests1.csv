@@ -1,0 +1,2 @@
+ExperimentNumber,WorkloadNumber,     Id,                   J,UserClass,              Policy,CloudDeploymentModel,  Deadline,    Budget,ExecutionTime,      Cost,  IsDeadlineViolated,    IsBudgetViolated,NumberOfVMs,          LogMessage
+               1,             1,      5,             J={1-1},     GOLD,          BBDecision,              Hybrid,   4000.00,     10.50,       116.40,      0.00,No (3883.600000000006 seconds) earlier,  No ($10.5) savings,          1,    By Decision Tree

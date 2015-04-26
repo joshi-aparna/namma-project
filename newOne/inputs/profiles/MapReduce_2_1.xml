@@ -1,0 +1,17 @@
+<Job>
+<DatasourceName>S3-sensors</DatasourceName>
+<MapTasks>
+<MapTask>
+<NumberOfTasks>1</NumberOfTasks>
+<DataSize>64</DataSize>
+<MillionInstructions>10000</MillionInstructions>
+<RTaskId dsize="15">reduce1</RTaskId>
+</MapTask>
+</MapTasks>
+<ReduceTasks>
+<ReduceTask name="reduce1">
+<ReduceMillionInstructions>1000</ReduceMillionInstructions>
+<OutputDataSize>5</OutputDataSize>
+</ReduceTask>
+</ReduceTasks>
+</Job>

@@ -1,0 +1,4 @@
+!!org.cloudbus.cloudsim.ex.mapreduce.models.request.Job
+reduceTasks:
+- [reduce, '1000', '0']
+dataSourceName: S3-sensors

@@ -1,0 +1,21 @@
+<Experiment>
+<Workload>
+<policy>BBDecision</policy>
+<CloudDeploymentModel>Hybrid</CloudDeploymentModel>
+<UserClassAllowedPercentage>
+<Class value="100.0">GOLD</Class>
+<Class value="60.0">SILVER</Class>
+<Class value="00.0">BRONZE</Class>
+</UserClassAllowedPercentage>
+<Requests>
+<Request>
+<SubmissionTime>200000</SubmissionTime>
+<Deadline>4000</Deadline>
+<Budget>10.5</Budget>
+<JobFile>MapReduce_2_1.xml</JobFile>
+<UserClass>GOLD</UserClass>
+</Request>
+</Requests>
+</Workload>
+</Experiment>
+
