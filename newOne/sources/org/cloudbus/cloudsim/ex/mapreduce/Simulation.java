@@ -23,8 +23,8 @@ import org.cloudbus.cloudsim.ex.mapreduce.models.request.Task;
 import org.cloudbus.cloudsim.ex.mapreduce.models.request.UserClass;
 import org.cloudbus.cloudsim.ex.util.CustomLog;
 
-import XMLReader.ExperimentParser;
-import XMLReader.JobParser;
+import xmlHandler.ExperimentParser;
+
 
 /**
  * This class contains the main method for execution of the simulation. Here,
@@ -49,8 +49,6 @@ public class Simulation {
     private static ArrayList<Integer> outputsize=new ArrayList<Integer>(); 
 
     private static java.util.Properties props = new java.util.Properties();
-    private static String inputfilename=null;
-    private static long submissiontime=-1;
     
     /**
      * Prints input parameters and execute the simulation a number of times, as
@@ -68,8 +66,6 @@ public class Simulation {
     
     public static ArrayList<Integer> main(String ifilename, long stime) throws Exception {
     	String id=MultiSimulation.getCurrentID();
-    	inputfilename=ifilename;
-    	submissiontime=stime;
     	System.out.println("In simulation.java, id="+id);
     	Configuration.loadProperties(id);
 

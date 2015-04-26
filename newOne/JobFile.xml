@@ -4,4 +4,8 @@
 <ID>1</ID>
 <Work>simulation1.properties</Work>
 </Datacenter>
+<Datacenter>
+<ID>2</ID>
+<Work>simulation1.properties</Work>
+</Datacenter>
 </JobDetails>

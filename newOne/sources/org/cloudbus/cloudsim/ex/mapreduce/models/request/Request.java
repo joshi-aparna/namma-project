@@ -19,7 +19,8 @@ import org.cloudbus.cloudsim.ex.mapreduce.policy.Policy.CloudDeploymentModel;
 import org.cloudbus.cloudsim.ex.util.Id;
 import org.yaml.snakeyaml.Yaml;
 
-import XMLReader.JobParser;
+import xmlHandler.JobParser;
+
 
 public class Request extends SimEvent {
     public int id;

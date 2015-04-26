@@ -1,26 +1,24 @@
 package multimapreduce;
-import java.io.BufferedWriter;
+
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
  
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
- 
+import org.cloudbus.cloudsim.ex.mapreduce.Properties;
+import org.cloudbus.cloudsim.Log;
+import org.cloudbus.cloudsim.ex.mapreduce.Configuration;
 import org.cloudbus.cloudsim.ex.mapreduce.Simulation;
 import org.xml.sax.SAXException;
-import org.yaml.snakeyaml.Yaml;
+import xmlHandler.WriteExperiment;
+import xmlHandler.WriteJob;
 
 public class MultiSimulation {
 	static List<JobClass> jobList;
@@ -73,12 +71,34 @@ public class MultiSimulation {
 				  e.printStackTrace();
 			  }
 		  }
-		/*  if(getNumberOfDatacenters()>1){
+		  if(getNumberOfDatacenters()>1){
 		  
-			  createIntermediateFile(); 
+			 
+			  Map<String, Double> classmap=new HashMap<String,Double>();
+			  classmap.put("GOLD",100.0);
+			  classmap.put("SILVER",60.0);
+			  classmap.put("BRONZE",00.0);
+			  int subtime=200000;
+			  new WriteExperiment ("BBDecision", "Hybrid",classmap,subtime,4000,10.5,"reduceFinal.xml","GOLD");
+			  //-------------------------------------------------*/
+			  cloneJob cj=new cloneJob();
+			  cj.DatasourceName="S3-sensors";
+			  
+			  HashMap<String,String> inter=new HashMap<String,String>();
+			  inter.put("reduce", "15");
+			  cj.addmap("1","1","1",inter);
+			  int sum=0;
+			   for(int i:outputsize){
+				  sum+=i;
+			   }
+			  cj.addreduce("reduce", String.valueOf(10000), String.valueOf(sum));
+			  new WriteJob(cj,"inputs/profiles/reduceFinal.xml");
+			  //---------------------------------------------------*/
+			  
+			
 			  writePropertiesFile("reducephasetwo.properties");
 			  JobClass job=new JobClass();
-			  job.setID("1");
+			  job.setID("3");
 			  job.setWorkFile("reducephasetwo.properties");
 			  jobList.add(job);
 			  System.out.println("NOW the number of datacenters="+getNumberOfDatacenters());
@@ -89,64 +109,30 @@ public class MultiSimulation {
 			// 	TODO Auto-generated catch block
 				  e.printStackTrace();
 			  }
-		  }*/
+		  }
 	  }
-	  public static void createIntermediateFile() {
-		  //--------------------------------------
-		  String content = "!!org.cloudbus.cloudsim.ex.mapreduce.models.request.Job\n";
-		  
-			File file = new File("inputs/profiles/reduceFinal.yaml");
-			FileWriter fw = null;
-			try {
-				fw = new FileWriter(file.getAbsoluteFile());
-				BufferedWriter bw = new BufferedWriter(fw);
-				bw.write(content);
-				bw.close();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-
-
-		  //-------------------------------------------*/
-
-			//--------------------------------------
-		   Map<String, Object> data = new HashMap<String, Object>();
-		  
-		   ArrayList<String[]> reducejobs=new ArrayList<String[]>();
-		   int sum=0;
-		   for(int i:outputsize){
-			  sum+=i;
-		   }
-		   String[] n={"reduce","1000",String.valueOf(sum)};
-			  reducejobs.add(n); 
-		   data.put("reduceTasks", reducejobs);
-		   data.put("dataSourceName", "S3-sensors");
-		   Yaml yaml = new Yaml();
-		   
-		try {
-			fw = new FileWriter(file.getAbsoluteFile(),true);
-			  yaml.dump(data, fw);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		 
-		   //--------------------------------------------*/
-				
-		}
+	 
 	  public static void writePropertiesFile(String file){
-		  Properties prop = new Properties();
+		  java.util.Properties prop = new java.util.Properties();
 			OutputStream output = null;
-		 
+		 String cloudfile=null;
 			try {
-		 
+				Configuration.loadProperties("1");
+				for (Properties property : Properties.values()) {
+					Log.printLine("= " + property + ": " + property.getProperty());
+					if(property.toString().equals("CLOUD")){
+						cloudfile=property.getProperty();
+					}
+				    
+				}
+				
+
+				System.out.println("cloudfile="+cloudfile);
 				output = new FileOutputStream(file);
 		 
 				// set the properties value
-				prop.setProperty("cloud.file", "Cloud.yaml");
-				prop.setProperty("experiment.files", "intermediate.yaml");
+				prop.setProperty("cloud.file", cloudfile);
+				prop.setProperty("experiment.files", "intermediate.xml");
 					
 				// save properties to project root folder
 				prop.store(output, null);

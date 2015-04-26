@@ -28,9 +28,12 @@ public class Job {
     @Override
     public String toString(){
     	String ret=dataSourceName+"\n";
+    	if(mapTasks!=null){
     	for(MapTask m:mapTasks){
     		ret+=m;
     	}
+    	}
+    	
     	return ret;
     }
 }
