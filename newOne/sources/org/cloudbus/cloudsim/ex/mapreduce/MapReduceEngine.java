@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import multimapreduce.MultiSimulation;
+import multimapreduce.OutputClass;
 
 import org.cloudbus.cloudsim.Cloudlet;
 import org.cloudbus.cloudsim.DatacenterBroker;
@@ -455,11 +456,11 @@ public class MapReduceEngine extends DatacenterBroker {
 	// Experiments Plotting
 	Experiment.logExperimentsData(requests);
 
-	// Java Log Output, which should be disabled from custom_log.properties
-	printInConsole();
+	
     }
 
-    private void printInConsole() {
+    public ArrayList<OutputClass> printInConsole() {
+    	ArrayList<OutputClass> outputclasslist=new ArrayList<OutputClass>();
 	DecimalFormat dft = new DecimalFormat("000000.00");
 	String indent = "\t";
 	Log.printLine("========== MAPREDUCE EXECUTION SUMMARY ==========");
@@ -513,10 +514,25 @@ public class MapReduceEngine extends DatacenterBroker {
 	    Log.printLine("= Cost: $" + request.getCost());
 	    Log.printLine("= Message: " + request.getLogMessage());
 	    Log.printLine();
+	    //--------------------------------------------
+	    double subtime=Double.POSITIVE_INFINITY;
+	    int size=0;
+	    for(Request r:requests.requests){
+	    	for(ReduceTask rt:r.job.reduceTasks){
+	    		System.out.println("reduce output mb="+rt.getOutputMB());
+	    		size+=rt.getOutputMB();
+	    		if(rt.getSubmissionTime()<subtime)
+	    			subtime=rt.getSubmissionTime();
+	    	}
+	    }
+	    //--------------------------------------------*/
+	    outputclasslist.add(new OutputClass(request.getCost(),request.budget,request.getExecutionTime(),subtime,size));
+	    
+	    
 	}
 	Log.printLine("========== END OF SUMMARY =========");
 	Log.printLine();
-
+	return outputclasslist;
     }
 
 }

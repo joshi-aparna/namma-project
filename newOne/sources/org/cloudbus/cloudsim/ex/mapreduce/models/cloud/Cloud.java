@@ -24,8 +24,10 @@ public class Cloud {
 	    vmlist.addAll(publicCloudDatacenter.vmTypes);
 	}
 
+	if(privateCloudDatacenters!=null){
 	for (PrivateCloudDatacenter privateCloudDatacenter : privateCloudDatacenters) {
 	    vmlist.addAll(privateCloudDatacenter.vmTypes);
+	}
 	}
 
 	return vmlist;
@@ -40,11 +42,13 @@ public class Cloud {
 	    }
 	}
 
+	if(privateCloudDatacenters!=null){
 	for (PrivateCloudDatacenter privateCloudDatacenter : privateCloudDatacenters) {
 	    for (VmType vmType : privateCloudDatacenter.vmTypes) {
 		if (vmType.getId() == VMTypeId)
 		    return vmType;
 	    }
+	}
 	}
 
 	return null;
@@ -57,9 +61,11 @@ public class Cloud {
 		return publicCloudDatacenter;
 	}
 
+	if(privateCloudDatacenters!=null){
 	for (PrivateCloudDatacenter privateCloudDatacenter : privateCloudDatacenters) {
 	    if (privateCloudDatacenter.getId() == cloudDatacenterId)
 		return privateCloudDatacenter;
+	}
 	}
 
 	return null;
@@ -76,10 +82,12 @@ public class Cloud {
 
     public void setUserClassAllowedPercentage(Map<UserClass, Double> userClassAllowedPercentage)
     {
+    	if(privateCloudDatacenters!=null){
 	for (PrivateCloudDatacenter privateCloudDatacenter : privateCloudDatacenters)
 	{
 	    privateCloudDatacenter.setUserClassesReservationPercentage(userClassAllowedPercentage);
 	}
+    	}
 
     }
 }

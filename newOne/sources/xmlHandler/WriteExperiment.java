@@ -14,13 +14,13 @@ public class WriteExperiment {
 	String policy;
 	String clouddeploymentmodel;
 	Map<String, Double> ucap;
-	int subtime;
+	double subtime;
 	double deadline;
 	double budget;
 	String jobFile;
 	String Userclass;
 	
-	public WriteExperiment(String policy, String cdm, Map<String,Double> map, int sub, double d, double b, String j,String c){
+	public WriteExperiment(String policy, String cdm, Map<String,Double> map, double sub, double d, double b, String j,String c){
 		this.policy=policy;
 		this.clouddeploymentmodel=cdm;
 		this.ucap=map;

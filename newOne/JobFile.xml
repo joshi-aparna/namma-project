@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <JobDetails>
 <Datacenter>
-<ID>1</ID>
+<ID>BangaloreCenter</ID>
 <Work>simulation1.properties</Work>
 </Datacenter>
 <Datacenter>
-<ID>2</ID>
+<ID>DelhiCenter</ID>
 <Work>simulation1.properties</Work>
 </Datacenter>
 </JobDetails>

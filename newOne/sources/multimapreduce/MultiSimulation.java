@@ -23,7 +23,7 @@ import xmlHandler.WriteJob;
 public class MultiSimulation {
 	static List<JobClass> jobList;
 	private static String currentID;
-	private static ArrayList<Integer> outputsize=new ArrayList<Integer>();
+	private static ArrayList<OutputClass> outputclasslist=new ArrayList<OutputClass>();
 	public static String getCurrentID(){
 		return currentID;
 	}
@@ -62,8 +62,8 @@ public class MultiSimulation {
 			  try{
 				  currentID=job.getID();
 				  System.out.println("STARTING JOB FOR DATACENTER ID="+currentID);
-			  outputsize.addAll(Simulation.main());
-			  System.out.println("now the outsputsize="+outputsize);
+			  outputclasslist.addAll(Simulation.main());
+			  
 			  
 			  }
 			  catch(Exception e){
@@ -78,7 +78,13 @@ public class MultiSimulation {
 			  classmap.put("GOLD",100.0);
 			  classmap.put("SILVER",60.0);
 			  classmap.put("BRONZE",00.0);
-			  int subtime=200000;
+			  double subtime=0;
+			  for(OutputClass i:outputclasslist){
+				  if(i.gettime()+i.getsubtime()>subtime){
+					  subtime= (i.gettime()+i.getsubtime());
+				  }
+			  }
+			  System.out.println("reducephasetwo, submission time="+subtime);
 			  new WriteExperiment ("BBDecision", "Hybrid",classmap,subtime,4000,10.5,"reduceFinal.xml","GOLD");
 			  //-------------------------------------------------*/
 			  cloneJob cj=new cloneJob();
@@ -88,8 +94,8 @@ public class MultiSimulation {
 			  inter.put("reduce", "15");
 			  cj.addmap("1","1","1",inter);
 			  int sum=0;
-			   for(int i:outputsize){
-				  sum+=i;
+			   for(OutputClass i:outputclasslist){
+				  sum+=i.getOutputSize();;
 			   }
 			  cj.addreduce("reduce", String.valueOf(10000), String.valueOf(sum));
 			  new WriteJob(cj,"inputs/profiles/reduceFinal.xml");
@@ -117,7 +123,7 @@ public class MultiSimulation {
 			OutputStream output = null;
 		 String cloudfile=null;
 			try {
-				Configuration.loadProperties("1");
+				Configuration.loadProperties("BangaloreCenter");
 				for (Properties property : Properties.values()) {
 					Log.printLine("= " + property + ": " + property.getProperty());
 					if(property.toString().equals("CLOUD")){

@@ -8,6 +8,8 @@
 
 package org.cloudbus.cloudsim.core;
 
+import multimapreduce.MultiSimulation;
+
 import org.cloudbus.cloudsim.Log;
 import org.cloudbus.cloudsim.NetworkTopology;
 import org.cloudbus.cloudsim.core.predicates.Predicate;
@@ -74,6 +76,7 @@ public abstract class SimEntity implements Cloneable {
 	 */
 	public int getId() {
 		return id;
+	//	return Integer.parseInt(MultiSimulation.getCurrentID());
 	}
 
 	// The schedule functions

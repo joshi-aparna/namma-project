@@ -35,6 +35,7 @@ public abstract class Policy {
 
 	if (cloudDeploymentModel == CloudDeploymentModel.Private || cloudDeploymentModel == CloudDeploymentModel.Hybrid)
 	{
+		if(cloud.privateCloudDatacenters!=null){
 	    for (PrivateCloudDatacenter privateCloudDatacenter : cloud.privateCloudDatacenters) {
 		VmType firstVmType = privateCloudDatacenter.vmTypes.get(0);
 		int maxAvailableResource = privateCloudDatacenter
@@ -44,6 +45,7 @@ public abstract class Policy {
 		    nVMs.add(new VmInstance(firstVmType, request));
 
 	    }
+		}
 	}
 
 	return nVMs;

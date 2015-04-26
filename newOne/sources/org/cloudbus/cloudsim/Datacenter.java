@@ -1024,7 +1024,7 @@ public class Datacenter extends SimEntity {
 	 */
 	@Override
 	public void startEntity() {
-		Log.printLine("in datacenter class  "+getName() + " is starting...");
+		System.out.println("in datacenter class  id="+getId()+" name="+getName() + " is starting...");
 		// this resource should register to regional GIS.
 		// However, if not specified, then register to system GIS (the
 		// default CloudInformationService) entity.

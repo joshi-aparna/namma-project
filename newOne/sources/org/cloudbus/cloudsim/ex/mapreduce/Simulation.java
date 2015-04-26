@@ -12,6 +12,8 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import multimapreduce.MultiSimulation;
+import multimapreduce.OutputClass;
+
 import org.cloudbus.cloudsim.Log;
 import org.cloudbus.cloudsim.core.CloudSim;
 import org.cloudbus.cloudsim.ex.mapreduce.models.cloud.Cloud;
@@ -46,9 +48,10 @@ public class Simulation {
     private static Requests requests;
 
     private  static MapReduceEngine engine;
-    private static ArrayList<Integer> outputsize=new ArrayList<Integer>(); 
-
+    
     private static java.util.Properties props = new java.util.Properties();
+    
+    private static ArrayList<OutputClass> outputclasslist=null;
     
     /**
      * Prints input parameters and execute the simulation a number of times, as
@@ -59,12 +62,8 @@ public class Simulation {
      */
     
    // public static void main(String[] args) throws Exception {
-    public static ArrayList<Integer> main() throws Exception{
-   	return(main(null,-1));
-    }
-    
-    
-    public static ArrayList<Integer> main(String ifilename, long stime) throws Exception {
+    public static ArrayList<OutputClass> main() throws Exception{
+   
     	String id=MultiSimulation.getCurrentID();
     	System.out.println("In simulation.java, id="+id);
     	Configuration.loadProperties(id);
@@ -146,10 +145,7 @@ public class Simulation {
 		CustomLog.closeAndRemoveHandlers();
 	    }
 	}
-	ArrayList<Integer> temp=new ArrayList<Integer>();
-	temp.addAll(outputsize);
-	outputsize.clear();
-	return temp;
+	return outputclasslist;
     }
 
     /**
@@ -211,14 +207,11 @@ public class Simulation {
 	    // START
 	    CloudSim.startSimulation();
 	    engine.logExecutionSummary();
-	    System.out.println("!!!!COMPLETED SIMULATION!!!!");
+	 // Java Log Output, which should be disabled from custom_log.properties
+		
+	    outputclasslist=engine.printInConsole();
 	    
-	    for(Request r:requests.requests){
-	    	for(ReduceTask rt:r.job.reduceTasks){
-	    		System.out.println("reduce output mb="+rt.getOutputMB());
-	    		outputsize.add(rt.getOutputMB());
-	    	}
-	    }
+	   
 	    Log.printLine("");
 	    Log.printLine("");
 	} catch (Exception e) {
