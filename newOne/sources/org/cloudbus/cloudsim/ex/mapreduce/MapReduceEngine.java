@@ -548,7 +548,7 @@ public class MapReduceEngine extends DatacenterBroker {
     			finishtime=t.getFinishTime();
     	}
 	    //--------------------------------------------*/
-	    outputclasslist.add(new OutputClass(request.getCost(),request.budget,finishtime,size));
+	    outputclasslist.add(new OutputClass(request.getCost(),request.budget,finishtime,size,MultiSimulation.getCurrentID()));
 	    
 	    
 	}

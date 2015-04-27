@@ -1,11 +1,11 @@
 [[[[[[[ Experiment Number: 1 | Workload Number: 1 ]]]]]]]
- [200047.7888888889,4000.0,10.5,inputs/profiles/reduceFinal.xml,GOLD]
+ [200047.8888888889,4000.0,10.5,inputs/profiles/reduceFinal.xml,GOLD]
 18:small-aws-us-east-1
 17:large-aws-us-east-1
 small-aws-us-east-1 :[18]->0 : [20.0, 0.5]
-small-aws-us-east-1: candidate solution: [18] : [20.0, 0.5]
 large-aws-us-east-1 :[17]->0 : [12.5, 1.15]
-small-aws-us-east-1: returned solution: [18] : [20.0 seconds, $0.5]
+small-aws-us-east-1: candidate solution: [18] : [20.0, 0.5]
 large-aws-us-east-1: candidate solution: [17] : [12.5, 1.15]
+small-aws-us-east-1: returned solution: [18] : [20.0 seconds, $0.5]
 large-aws-us-east-1: returned solution: [17] : [12.5 seconds, $1.15]
 Selected Solution: [18] : [20.0, 0.5]

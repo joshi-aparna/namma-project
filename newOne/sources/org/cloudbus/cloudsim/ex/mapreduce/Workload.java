@@ -17,6 +17,12 @@ public class Workload
     Map<UserClass, Double> userClassAllowedPercentage = new HashMap<UserClass, Double>();
     Requests requests;
 
+    public String getPolicy(){
+    	return policy;
+    }
+    public String getCDM(){
+    	return cloudDeploymentModel.toString();
+    }
     public Workload(String policy, String cloudDeploymentModel, Map<String, Double> userClassAllowedPercentage,
 	    ArrayList<Request> requests)
     {

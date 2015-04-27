@@ -1,6 +1,8 @@
 package multimapreduce;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -15,10 +17,12 @@ import javax.xml.parsers.SAXParserFactory;
 import org.cloudbus.cloudsim.ex.mapreduce.Properties;
 import org.cloudbus.cloudsim.Log;
 import org.cloudbus.cloudsim.ex.mapreduce.Configuration;
+import org.cloudbus.cloudsim.ex.mapreduce.Experiment;
 import org.cloudbus.cloudsim.ex.mapreduce.Simulation;
 import org.xml.sax.SAXException;
 
 import xmlHandler.DatacenterConfigReader;
+import xmlHandler.ExperimentParser;
 import xmlHandler.WriteExperiment;
 import xmlHandler.WriteJob;
 
@@ -29,12 +33,12 @@ public class MultiSimulation {
 	public static String getCurrentID(){
 		return currentID;
 	}
-	  public static void main(String JobConfigFile) {
+	  public static void main(String DatacenterConfigFile) {
 		    SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
 		    try {
 		        SAXParser saxParser = saxParserFactory.newSAXParser();
 		        DatacenterConfigReader handler = new DatacenterConfigReader();
-		        saxParser.parse(new File(JobConfigFile), handler);
+		        saxParser.parse(new File(DatacenterConfigFile), handler);
 		        //Get Employees list
 		        datacenterconfiglist = handler.getDataconfigList();
 		        //print employee information
@@ -58,7 +62,7 @@ public class MultiSimulation {
 		  return datacenterconfiglist.size();
 	  }
 	  public static void main(String args[])   {
-		  main("JobFile.xml");
+		  main("DatacenterConfigFile.xml");
 		  System.out.println("number of datacenters found="+getNumberOfDatacenters());
 		  for(final DatacenterConfig job:datacenterconfiglist){
 			  try{
@@ -86,8 +90,59 @@ public class MultiSimulation {
 					  subtime= i.gettime();
 				  }
 			  }
+			  DatacenterConfig selectedDc=datacenterconfiglist.get(0);
+			  for(DatacenterConfig d:datacenterconfiglist){
+				  if(!(d.getID()).equals(selectedDc.getID())){
+					  System.out.println("Transferring from "+d.getID()+" to "+selectedDc.getID());
+					  double in=selectedDc.getInMbps();
+					  double out=d.getOutMbps();
+					  double speed=(in<out)?in:out;
+					  double dsize=0;
+					  for(OutputClass oc:outputclasslist){
+						  if((oc.getDcId()).equals(d.getID())){
+							  dsize+=oc.getOutputSize();
+						  }
+					  }
+					  subtime+=dsize / (speed / 8.0);
+				  }
+			  }
+			  //---------------------------
+			  java.util.Properties properties = System.getProperties();
+			  try {
+				properties.load(new FileInputStream(new File(selectedDc.getWorkFile())));
+			} catch (Exception e1) {
+				System.out.println("in multisimulation loading props for selected dc");
+				e1.printStackTrace();
+			}
+			  String exFileNameSelectedDc=null;
+			  
+			  for (Properties property : Properties.values()) {
+				    Log.printLine("= " + property + ": " + property.getProperty());
+				    if((property.toString()).equals("EXPERIMENT")){
+				    	exFileNameSelectedDc=property.getProperty();
+				    	break;
+				    }
+			  }
+			  
+			  //---------------Reading experiment for the selected dc-----------
+			  Experiment experiment =null;
+			    SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+			    try {
+			        SAXParser saxParser = saxParserFactory.newSAXParser();
+			        ExperimentParser handler = new ExperimentParser();
+			        saxParser.parse(new File("experiments/"+exFileNameSelectedDc), handler);
+			        experiment = handler.getExperiment();
+			    }catch(Exception e){
+			    	System.out.println("reading experiment file in multisimulation.java e=");
+			    	e.printStackTrace();
+			    }
+			    String policy=experiment.workloads.get(0).getPolicy();
+			    String cdm=experiment.workloads.get(0).getCDM();
+			    System.out.println("=================policy="+policy+"  cdm="+cdm);
+			  //-----------------------------
+			  
 			  System.out.println("reducephasetwo, submission time="+subtime);
-			  new WriteExperiment ("BBDecision", "Public",classmap,subtime,4000,10.5,"reduceFinal.xml","GOLD");
+			  new WriteExperiment (policy, cdm,classmap,subtime,4000,10.5,"reduceFinal.xml","GOLD");
 			  //-------------------------------------------------*/
 			  cloneJob cj=new cloneJob();
 			  cj.DatasourceName="S3-sensors";

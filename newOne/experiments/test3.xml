@@ -1,7 +1,7 @@
 <Experiment>
 <Workload>
 <policy>BBDecision</policy>
-<CloudDeploymentModel>Hybrid</CloudDeploymentModel>
+<CloudDeploymentModel>Public</CloudDeploymentModel>
 <UserClassAllowedPercentage>
 <Class value="100.0">GOLD</Class>
 <Class value="60.0">SILVER</Class>

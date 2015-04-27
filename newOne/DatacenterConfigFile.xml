@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JobDetails>
+<Datacenter>
+<ID>BangaloreCenter</ID>
+<InMbps>800</InMbps>
+<OutMbps>500</OutMbps>
+<Work>simulation1.properties</Work>
+</Datacenter>
+<Datacenter>
+<ID>DelhiCenter</ID>
+<InMbps>700</InMbps>
+<OutMbps>400</OutMbps>
+<Work>simulation.properties</Work>
+</Datacenter>
+</JobDetails>

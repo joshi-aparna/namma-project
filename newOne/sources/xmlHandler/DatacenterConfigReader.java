@@ -18,6 +18,8 @@ public class DatacenterConfigReader extends DefaultHandler {
 	}
 	boolean bid=false;
 	boolean bworkfile=false;
+	boolean binmbps=false;
+	boolean boutmbps=false;
 	@Override
     public void startElement(String uri, String localName, String qName, Attributes attributes)
             throws SAXException {
@@ -33,6 +35,10 @@ public class DatacenterConfigReader extends DefaultHandler {
             bid = true;
         } else if (qName.equalsIgnoreCase("work")) {
             bworkfile = true;
+        } else if (qName.equalsIgnoreCase("Inmbps")) {
+            binmbps = true;
+        } else if (qName.equalsIgnoreCase("OutMbps")) {
+            boutmbps = true;
         }
     }
  
@@ -56,6 +62,13 @@ public class DatacenterConfigReader extends DefaultHandler {
         } else if (bworkfile) {
             datacenterconfig.setWorkFile(new String(ch, start, length));
             bworkfile = false;
+        }
+        else if (binmbps) {
+            datacenterconfig.setInMbps(Double.parseDouble(new String(ch, start, length)));
+            binmbps = false;
+        }else if (boutmbps) {
+        	datacenterconfig.setOutMbps(Double.parseDouble(new String(ch, start, length)));
+        	boutmbps=false;
         }
     }
 		

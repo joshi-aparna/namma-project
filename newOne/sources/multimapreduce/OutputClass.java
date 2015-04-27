@@ -3,10 +3,12 @@ package multimapreduce;
 public class OutputClass {
 	double cost,budget,finishtime;
 	int outputsize;
+	String dcID;
 
-	public OutputClass(double c,double b,double ft,int outsize ){
+	public OutputClass(double c,double b,double ft,int outsize,String id ){
 		 cost=c; budget=b;finishtime=ft;
 		 this.outputsize=outsize;
+		 this.dcID=id;
 	}
 	 public void setcost(double c)
 	 {     cost=c;}
@@ -22,5 +24,8 @@ public class OutputClass {
 	 { return finishtime; }
 	 public int getOutputSize()
 	 { return outputsize; }
+	 public String getDcId(){
+		 return dcID;
+	 }
 	 
 }
