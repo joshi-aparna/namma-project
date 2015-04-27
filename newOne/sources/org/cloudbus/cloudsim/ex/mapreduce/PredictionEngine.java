@@ -236,13 +236,17 @@ public class PredictionEngine
 
 	for (Map.Entry<Integer, Integer> entry : schedulingPlan.entrySet()) {
 	    Task task = job.getTask(entry.getKey());
-	    if (task instanceof ReduceTask)
+	    if (task instanceof ReduceTask){
+	    	
 		for (VmInstance vm : nVMs) {
 		    if (entry.getValue() == vm.getId())
-			if (!provisioningPlans.get(0).contains(vm) && !provisioningPlans.get(1).contains(vm))
+			if (!provisioningPlans.get(0).contains(vm) && !provisioningPlans.get(1).contains(vm)){
 			    provisioningPlans.get(1).add(vm);
+			  	}
 		}
+	    }
 	}
+	
 
 	return provisioningPlans;
     }

@@ -6,6 +6,6 @@
 </Datacenter>
 <Datacenter>
 <ID>DelhiCenter</ID>
-<Work>simulation1.properties</Work>
+<Work>simulation.properties</Work>
 </Datacenter>
 </JobDetails>

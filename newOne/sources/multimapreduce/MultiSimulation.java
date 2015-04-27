@@ -17,11 +17,13 @@ import org.cloudbus.cloudsim.Log;
 import org.cloudbus.cloudsim.ex.mapreduce.Configuration;
 import org.cloudbus.cloudsim.ex.mapreduce.Simulation;
 import org.xml.sax.SAXException;
+
+import xmlHandler.DatacenterConfigReader;
 import xmlHandler.WriteExperiment;
 import xmlHandler.WriteJob;
 
 public class MultiSimulation {
-	static List<JobClass> jobList;
+	static List<DatacenterConfig> datacenterconfiglist;
 	private static String currentID;
 	private static ArrayList<OutputClass> outputclasslist=new ArrayList<OutputClass>();
 	public static String getCurrentID(){
@@ -31,12 +33,12 @@ public class MultiSimulation {
 		    SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
 		    try {
 		        SAXParser saxParser = saxParserFactory.newSAXParser();
-		        JobFileParser handler = new JobFileParser();
+		        DatacenterConfigReader handler = new DatacenterConfigReader();
 		        saxParser.parse(new File(JobConfigFile), handler);
 		        //Get Employees list
-		        jobList = handler.getJobList();
+		        datacenterconfiglist = handler.getDataconfigList();
 		        //print employee information
-		        for(JobClass job : jobList){
+		        for(DatacenterConfig job : datacenterconfiglist){
 		        	System.out.println("datacenter:");
 		            System.out.println(job);
 		        }
@@ -45,7 +47,7 @@ public class MultiSimulation {
 		    }
 		    }
 	  public static String getWorkFile(String id){
-		  for(JobClass job:jobList){
+		  for(DatacenterConfig job:datacenterconfiglist){
 			  if((job.getID()).equals(id)){
 				  return job.getWorkFile();
 			  }
@@ -53,12 +55,12 @@ public class MultiSimulation {
 		  return null;
 	  }
 	  public static int getNumberOfDatacenters(){
-		  return jobList.size();
+		  return datacenterconfiglist.size();
 	  }
 	  public static void main(String args[])   {
 		  main("JobFile.xml");
 		  System.out.println("number of datacenters found="+getNumberOfDatacenters());
-		  for(final JobClass job:jobList){
+		  for(final DatacenterConfig job:datacenterconfiglist){
 			  try{
 				  currentID=job.getID();
 				  System.out.println("STARTING JOB FOR DATACENTER ID="+currentID);
@@ -80,19 +82,16 @@ public class MultiSimulation {
 			  classmap.put("BRONZE",00.0);
 			  double subtime=0;
 			  for(OutputClass i:outputclasslist){
-				  if(i.gettime()+i.getsubtime()>subtime){
-					  subtime= (i.gettime()+i.getsubtime());
+				  if(i.gettime()>subtime){
+					  subtime= i.gettime();
 				  }
 			  }
 			  System.out.println("reducephasetwo, submission time="+subtime);
-			  new WriteExperiment ("BBDecision", "Hybrid",classmap,subtime,4000,10.5,"reduceFinal.xml","GOLD");
+			  new WriteExperiment ("BBDecision", "Public",classmap,subtime,4000,10.5,"reduceFinal.xml","GOLD");
 			  //-------------------------------------------------*/
 			  cloneJob cj=new cloneJob();
 			  cj.DatasourceName="S3-sensors";
-			  
-			  HashMap<String,String> inter=new HashMap<String,String>();
-			  inter.put("reduce", "15");
-			  cj.addmap("1","1","1",inter);
+		
 			  int sum=0;
 			   for(OutputClass i:outputclasslist){
 				  sum+=i.getOutputSize();;
@@ -103,12 +102,12 @@ public class MultiSimulation {
 			  
 			
 			  writePropertiesFile("reducephasetwo.properties");
-			  JobClass job=new JobClass();
-			  job.setID("3");
-			  job.setWorkFile("reducephasetwo.properties");
-			  jobList.add(job);
+			  DatacenterConfig datacenterconfig=new DatacenterConfig();
+			  datacenterconfig.setID("ReducePhaseTwo");
+			  datacenterconfig.setWorkFile("reducephasetwo.properties");
+			  datacenterconfiglist.add(datacenterconfig);
 			  System.out.println("NOW the number of datacenters="+getNumberOfDatacenters());
-			  currentID=job.getID();
+			  currentID="ReducePhaseTwo";// Important!! donot change this name. accessed in mapreduceengine
 			  try {
 				  System.out.println("Phase two simulation complete!!!! final output is of size:"+Simulation.main());
 			  } catch (Exception e) {

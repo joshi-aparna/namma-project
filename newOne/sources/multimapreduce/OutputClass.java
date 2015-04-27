@@ -1,14 +1,12 @@
 package multimapreduce;
 
 public class OutputClass {
-	double cost,budget,exetime;
+	double cost,budget,finishtime;
 	int outputsize;
-	double submissiontime;
 
-	public OutputClass(double c,double b,double t, double subtime,int outsize ){
-		 cost=c; budget=b;exetime=t;
+	public OutputClass(double c,double b,double ft,int outsize ){
+		 cost=c; budget=b;finishtime=ft;
 		 this.outputsize=outsize;
-		 this.submissiontime=subtime;
 	}
 	 public void setcost(double c)
 	 {     cost=c;}
@@ -19,12 +17,10 @@ public class OutputClass {
 	 public double getbudget()
 	 { return budget; }
 	 public void settime(double t)
-	 {     exetime=t;}
+	 {     finishtime=t;}
 	 public double gettime()
-	 { return exetime; }
+	 { return finishtime; }
 	 public int getOutputSize()
 	 { return outputsize; }
-	 public double getsubtime(){
-		 return submissiontime;
-	 }
+	 
 }

@@ -1,23 +1,11 @@
 [[[[[[[ Experiment Number: 1 | Workload Number: 1 ]]]]]]]
- [200222.9,4000.0,10.5,inputs/profiles/reduceFinal.xml,GOLD]
-35:openstack-micro
-36:openstack-micro
-33:azure-standard
-34:azure-standard
-31:small-aws-us-east-1
-32:small-aws-us-east-1
-29:large-aws-us-east-1
-30:large-aws-us-east-1
-azure-standard :[33, 33]->0 : [10.08, 2.0]
-small-aws-us-east-1 :[31, 31]->0 : [20.09, 0.58]
-openstack-micro :[35, 35]->0 : [100.11, 0.0]
-large-aws-us-east-1 :[29, 29]->0 : [12.58, 1.23]
-openstack-micro: candidate solution: [35, 35] : [100.11, 0.0]
-azure-standard: candidate solution: [33, 33] : [10.08, 2.0]
-large-aws-us-east-1: candidate solution: [29, 29] : [12.58, 1.23]
-small-aws-us-east-1: candidate solution: [31, 31] : [20.09, 0.58]
-openstack-micro: returned solution: [35, 35] : [100.11 seconds, $0.0]
-large-aws-us-east-1: returned solution: [29, 29] : [12.58 seconds, $1.23]
-azure-standard: returned solution: [33, 33] : [10.08 seconds, $2.0]
-small-aws-us-east-1: returned solution: [31, 31] : [20.09 seconds, $0.58]
-Selected Solution: [35, 35] : [100.11, 0.0]
+ [200047.7888888889,4000.0,10.5,inputs/profiles/reduceFinal.xml,GOLD]
+18:small-aws-us-east-1
+17:large-aws-us-east-1
+small-aws-us-east-1 :[18]->0 : [20.0, 0.5]
+small-aws-us-east-1: candidate solution: [18] : [20.0, 0.5]
+large-aws-us-east-1 :[17]->0 : [12.5, 1.15]
+small-aws-us-east-1: returned solution: [18] : [20.0 seconds, $0.5]
+large-aws-us-east-1: candidate solution: [17] : [12.5, 1.15]
+large-aws-us-east-1: returned solution: [17] : [12.5 seconds, $1.15]
+Selected Solution: [18] : [20.0, 0.5]

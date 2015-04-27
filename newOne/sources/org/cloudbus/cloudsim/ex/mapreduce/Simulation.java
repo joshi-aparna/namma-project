@@ -120,7 +120,6 @@ public class Simulation {
 	        ExperimentParser handler = new ExperimentParser();
 	        saxParser.parse(new File(experimentFileName), handler);
 	        experiment = handler.getExperiment();
-	        System.out.println("\n experiment created from xml="+experiment);
 	    }catch(Exception e){
 	    	System.out.println("reading experiment file in simulation.java e=");
 	    	e.printStackTrace();

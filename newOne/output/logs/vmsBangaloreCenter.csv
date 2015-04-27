@@ -1,4 +1,4 @@
 ExperimentNumber,WorkloadNumber,RequestId,                   J,UserClass,              Policy,CloudDeploymentModel,     Id,                Name,ExecutionTime,ExecutionCost,     TasksIdAsString
-               1,             1,        5,             J={1-1},     GOLD,          BBDecision,              Hybrid,     11,     openstack-micro,       116.40,         0.00,               [3-4]
-               1,             1,       16,             J={1-1},     GOLD,          BBDecision,              Hybrid,     23,     openstack-micro,       116.40,         0.00,               [7-8]
-               1,             1,       27,             J={1-1},     GOLD,          BBDecision,              Hybrid,     35,     openstack-micro,       100.11,         0.00,             [11-12]
+               1,             1,        5,             J={2-1},     GOLD,          BBDecision,              Hybrid,      6, small-aws-us-east-1,        47.69,         0.50,             [4-5-6]
+               1,             1,       14,             J={1-1},     GOLD,          BBDecision,              Hybrid,     13, small-aws-us-east-1,        27.69,         0.50,              [9-10]
+               1,             1,       23,             J={0-1},     GOLD,          BBDecision,              Public,     18, small-aws-us-east-1,        20.00,         0.50,                [12]

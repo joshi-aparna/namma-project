@@ -7,12 +7,6 @@
 <MillionInstructions>10000</MillionInstructions>
 <RTaskId dsize="15">reduce1</RTaskId>
 </MapTask>
-<MapTask>
-<NumberOfTasks>1</NumberOfTasks>
-<DataSize>64</DataSize>
-<MillionInstructions>10000</MillionInstructions>
-<RTaskId dsize="15">reduce1</RTaskId>
-</MapTask>
 </MapTasks>
 <ReduceTasks>
 <ReduceTask name="reduce1">

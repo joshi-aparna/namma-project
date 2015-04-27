@@ -221,6 +221,7 @@ public class BB {
 	request.mapAndReduceVmProvisionList = provisioningPlans.get(0);
 	request.reduceOnlyVmProvisionList = provisioningPlans.get(1);
 
+	System.out.println("IN BB.JAVA, number of reduce only tasks found="+provisioningPlans.get(1).size());
 	// 2- Scheduling
 	request.schedulingPlan = selectedSchedulingPlan;
 

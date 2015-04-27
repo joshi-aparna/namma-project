@@ -59,7 +59,7 @@ public class Request extends SimEvent {
 	this.deadline = Double.valueOf(df.format(deadline));
 	this.jobFile = "inputs/profiles/" + jobFile;
 	this.userClass = userClass;
-	mapAndReduceVmProvisionList = new ArrayList<VmInstance>();
+	//mapAndReduceVmProvisionList = new ArrayList<VmInstance>();
 	reduceOnlyVmProvisionList = new ArrayList<VmInstance>();
 	schedulingPlan = new HashMap<Integer, Integer>();
 
@@ -240,6 +240,7 @@ public class Request extends SimEvent {
 	double firstSubmissionTime = -1;
 	double lastFinishTime = -1;
 
+	
 	for (MapTask mapTask : job.mapTasks)
 	{
 	    if (firstSubmissionTime == -1 || firstSubmissionTime > mapTask.getSubmissionTime())
@@ -319,7 +320,8 @@ public class Request extends SimEvent {
 	return "J={" + job.mapTasks.size() + "-" + job.reduceTasks.size() + "}";
     }
 
-    private Job readJobYAML(String jobFile) {
+    @SuppressWarnings("unused")
+	private Job readJobYAML(String jobFile) {
 	new Job();
 
 	Yaml yaml = new Yaml();

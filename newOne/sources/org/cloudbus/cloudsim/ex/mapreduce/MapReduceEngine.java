@@ -175,6 +175,12 @@ public class MapReduceEngine extends DatacenterBroker {
 	    Log.printLine(getName() + " No VMs with reduce only");
 	else
 	{
+		//---------if it is reducephasetwo, also provision vm for reduceonly tasks-----------------------------------
+		if(MultiSimulation.getCurrentID().equals("ReducePhaseTwo")){
+			System.out.println("in mapreduce engine, submitting vm list for reduce only jobs also");
+			submitVmList(request.reduceOnlyVmProvisionList);
+		}
+		//---------------------------------------------*
 	    Log.printLine(getName() + " SELECTED THE FOLLOWING VMs (Reduce Only) [NOT PROVISIONED YET]:-");
 	    for (VmInstance vmInstance : request.reduceOnlyVmProvisionList) {
 		Log.printLine("-R only VM ID: " + vmInstance.getId() + " of Type: " + vmInstance.name);
@@ -205,6 +211,18 @@ public class MapReduceEngine extends DatacenterBroker {
 		    requestedVms++;
 		}
 	    }
+	    //------------If it is reduce phase two, also send vm for reduce only tasks----------------------------
+	    if(MultiSimulation.getCurrentID().equals("ReducePhaseTwo")){
+	    	  for (VmInstance vm : request.reduceOnlyVmProvisionList) {
+	    			if (cloudDatacenter.isVMInCloudDatacenter(vm.vmTypeId)) {
+	    			    Log.printLine(CloudSim.clock() + ": " + getName() + ": creating VM #" + vm.getId() + " in "
+	    				    + cloudDatacenter.getName());
+	    			    sendNow(datacenterId, CloudSimTags.VM_CREATE_ACK, (Vm) vm);
+	    			    requestedVms++;
+	    			}
+	    		    }
+	    }
+	    //----------------------------
 	    getDatacenterRequestedIdsList().add(datacenterId);
 	}
 
@@ -515,18 +533,22 @@ public class MapReduceEngine extends DatacenterBroker {
 	    Log.printLine("= Message: " + request.getLogMessage());
 	    Log.printLine();
 	    //--------------------------------------------
-	    double subtime=Double.POSITIVE_INFINITY;
+	    double finishtime=-1;
 	    int size=0;
 	    for(Request r:requests.requests){
 	    	for(ReduceTask rt:r.job.reduceTasks){
 	    		System.out.println("reduce output mb="+rt.getOutputMB());
 	    		size+=rt.getOutputMB();
-	    		if(rt.getSubmissionTime()<subtime)
-	    			subtime=rt.getSubmissionTime();
+	    		
 	    	}
 	    }
+	    for(Task t:requests.getAllTasks()){
+    		
+    		if(t.getFinishTime()>finishtime)
+    			finishtime=t.getFinishTime();
+    	}
 	    //--------------------------------------------*/
-	    outputclasslist.add(new OutputClass(request.getCost(),request.budget,request.getExecutionTime(),subtime,size));
+	    outputclasslist.add(new OutputClass(request.getCost(),request.budget,finishtime,size));
 	    
 	    
 	}
