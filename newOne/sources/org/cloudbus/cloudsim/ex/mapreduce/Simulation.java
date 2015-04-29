@@ -168,7 +168,7 @@ public class Simulation {
 	    Cloud.brokerID = engine.getId();
 
 	    // Create datacentres and cloudlets
-	    cloud = YamlFile.getCloudFromYaml("inputs/" + Properties.CLOUD.getProperty());
+	    cloud = YamlFile.getCloudFromYaml("inputs/"+Properties.CLOUD.getProperty());
 	    cloud.setUserClassAllowedPercentage(userClassAllowedPercentage);
 	    engine.setCloud(cloud);
 	   //---------------------------------------------------------------

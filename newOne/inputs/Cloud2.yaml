@@ -3,18 +3,15 @@
 publicCloudDatacenters:
  - [
     # Public Cloud info: [name, [vmTypes]]
-   BangaloreCenter,
+    DelhiCenter,
       [ 
         # VM Type info (You have multiples): [name, cost per hour, transferring.cost, mips, cores, ram, boot_time]
         !!org.cloudbus.cloudsim.ex.mapreduce.models.cloud.VmType
-        [large-Bangalore-center, 1.15, 0.005, 800.0, 1, 1024, 0],
+        [large-Delhi-center, 1.15, 0.005, 800.0, 1, 1024, 0],
         !!org.cloudbus.cloudsim.ex.mapreduce.models.cloud.VmType
-        [small-Bangalore-center, 0.5, 0.005, 500.0, 1, 1024, 0]
+        [small-Delhi-center, 0.5, 0.005, 500.0, 1, 1024, 0]
       ]
    ]
-
-
-
 dataSources:
    # Data Sources info (You have multiples): [name, cost]
  - [gbr-sensors, 0.000]
@@ -24,19 +21,16 @@ dataSources:
 
 throughputs_vm_vm:
 # Throughputs info between VM Types (You have multiples): [source, destination, throughput]
-- [large-Bangalore-center, small-Bangalore-center, 800.0]
-- [small-Bangalore-center, large-Bangalore-center, 800.0]
-
+- [large-Delhi-center, small-Delhi-center, 800.0]
+- [small-Delhi-center, large-Delhi-center, 800.0]
 
 throughputs_ds_vm:
 # Throughputs info between a VM Type and a Data Source (You have multiples): [source, destination, throughput]
-- [gbr-sensors, large-Bangalore-center, 100.0]
-- [gbr-sensors, small-Bangalore-center, 90.0]
+- [gbr-sensors, large-Delhi-center, 100.0]
+- [gbr-sensors, small-Delhi-center, 90.0]
 
+- [EEE-sensors, large-Delhi-center, 100.0]
+- [EEE-sensors, small-Delhi-center, 90.0]
 
-- [EEE-sensors, large-Bangalore-center, 100.0]
-- [EEE-sensors, small-Bangalore-center, 90.0]
-
-
-- [S3-sensors, large-Bangalore-center, 100.0]
-- [S3-sensors, small-Bangalore-center, 90.0]
+- [S3-sensors, large-Delhi-center, 100.0]
+- [S3-sensors, small-Delhi-center, 90.0]

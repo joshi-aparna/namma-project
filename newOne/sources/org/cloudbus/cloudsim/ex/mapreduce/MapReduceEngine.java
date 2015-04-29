@@ -28,6 +28,9 @@ import org.cloudbus.cloudsim.ex.mapreduce.policy.Policy;
 import org.cloudbus.cloudsim.ex.util.CustomLog;
 import org.cloudbus.cloudsim.lists.VmList;
 
+import GeoDistrMapReduce.GeoMRSimulation;
+import GeoDistrMapReduce.GroupManager;
+
 public class MapReduceEngine extends DatacenterBroker {
 
     public int currentWorkloadNumber;
@@ -175,7 +178,7 @@ public class MapReduceEngine extends DatacenterBroker {
 	    Log.printLine(getName() + " No VMs with reduce only");
 	else
 	{
-		//---------if it is reducephasetwo, also provision vm for reduceonly tasks-----------------------------------
+		//---------Namma-Project:if it is reducephasetwo, also provision vm for reduceonly tasks-----------------------------------
 		if(MultiSimulation.getCurrentID().equals("ReducePhaseTwo")){
 			System.out.println("in mapreduce engine, submitting vm list for reduce only jobs also");
 			submitVmList(request.reduceOnlyVmProvisionList);
@@ -211,7 +214,7 @@ public class MapReduceEngine extends DatacenterBroker {
 		    requestedVms++;
 		}
 	    }
-	    //------------If it is reduce phase two, also send vm for reduce only tasks----------------------------
+	    //------------Namma-Project:If it is reduce phase two, also send vm for reduce only tasks----------------------------
 	    if(MultiSimulation.getCurrentID().equals("ReducePhaseTwo")){
 	    	  for (VmInstance vm : request.reduceOnlyVmProvisionList) {
 	    			if (cloudDatacenter.isVMInCloudDatacenter(vm.vmTypeId)) {
@@ -380,9 +383,16 @@ public class MapReduceEngine extends DatacenterBroker {
 	// CHECK: if all map tasks finished to start the reduce phase
 	if (cloudlet instanceof MapTask && isAllMapTaskFinished(cloudlet.getCloudletId()))
 	{
+		if(GroupManager.type==GroupManager.MULTI || GroupManager.type==GroupManager.COPY){
 	    Request request = requests.getRequestFromTaskId(cloudlet.getCloudletId());
 	    startReducePhase(request);
 	    return;
+		}
+		//
+		if(GroupManager.type==GroupManager.GEO){
+			GeoMRSimulation.createOutputClass(requests);
+			return;
+		}
 	}
 	// FINISHED NEW CODE
 
