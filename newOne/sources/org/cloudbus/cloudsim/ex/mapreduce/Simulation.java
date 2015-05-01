@@ -4,15 +4,12 @@ import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import multimapreduce.MultiSimulation;
-import multimapreduce.OutputClass;
 
 import org.cloudbus.cloudsim.Log;
 import org.cloudbus.cloudsim.core.CloudSim;
@@ -23,6 +20,11 @@ import org.cloudbus.cloudsim.ex.mapreduce.models.request.Requests;
 import org.cloudbus.cloudsim.ex.mapreduce.models.request.Task;
 import org.cloudbus.cloudsim.ex.mapreduce.models.request.UserClass;
 import org.cloudbus.cloudsim.ex.util.CustomLog;
+
+import GeoDistrMapReduce.GeoMRSimulation;
+import GeoDistrMapReduce.GroupManager;
+import GeoDistrMapReduce.MultiMRSimulation;
+
 
 import xmlHandler.ExperimentParser;
 
@@ -50,7 +52,6 @@ public class Simulation {
     
     private static java.util.Properties props = new java.util.Properties();
     
-    private static ArrayList<OutputClass> outputclasslist=null;
     
     /**
      * Prints input parameters and execute the simulation a number of times, as
@@ -61,9 +62,14 @@ public class Simulation {
      */
     
    // public static void main(String[] args) throws Exception {
-    public static ArrayList<OutputClass> main() throws Exception{
+    public static void main() throws Exception{
    
-    	String id=MultiSimulation.getCurrentID();
+    	String id = null;
+    	int type=GroupManager.getTypeOfMR();
+    	if(type==GroupManager.MULTI)
+    		id=MultiMRSimulation.getCurrentID();
+    	else if(type==GroupManager.GEO)
+    		id=GeoMRSimulation.getCurrentID();
     	System.out.println("In simulation.java, id="+id);
     	Configuration.loadProperties(id);
 
@@ -143,7 +149,7 @@ public class Simulation {
 		CustomLog.closeAndRemoveHandlers();
 	    }
 	}
-	return outputclasslist;
+	
     }
 
     /**
@@ -200,6 +206,7 @@ public class Simulation {
 		}
 		preExperimentIndex--;
 	    }
+	
 	    engine.setRequests(requests);
 
 	    // START
@@ -207,7 +214,7 @@ public class Simulation {
 	    engine.logExecutionSummary();
 	 // Java Log Output, which should be disabled from custom_log.properties
 		
-	    outputclasslist=engine.printInConsole();
+	    engine.printInConsole();
 	    
 	   
 	    Log.printLine("");

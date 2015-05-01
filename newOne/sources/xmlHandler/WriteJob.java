@@ -8,9 +8,10 @@ import java.io.StringWriter;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
 
-import multimapreduce.cloneJob;
-import multimapreduce.clonemap;
-import multimapreduce.clonereduce;
+import GeoDistrMapReduce.cloneJob;
+import GeoDistrMapReduce.clonemap;
+import GeoDistrMapReduce.clonereduce;
+
 
 public class WriteJob {
 

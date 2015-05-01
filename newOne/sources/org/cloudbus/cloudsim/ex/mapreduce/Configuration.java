@@ -5,9 +5,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import GeoDistrMapReduce.GroupManager;
+import GeoDistrMapReduce.MultiMRSimulation;
 
-import multimapreduce.MultiSimulation;
+
 
 /**
  * This class implements the properties manager. Here the name of the properties
@@ -23,7 +23,7 @@ public enum Configuration {
 
     
     public static  void loadProperties(String id){
-	loadPropertiesFromFile(MultiSimulation.getWorkFile(id));
+	loadPropertiesFromFile(MultiMRSimulation.getWorkFile(id));
     }
 
     public String getProperty(String key) {

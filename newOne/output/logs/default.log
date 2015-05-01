@@ -1,5 +1,5 @@
 [[[[[[[ Experiment Number: 1 | Workload Number: 1 ]]]]]]]
- [200047.8888888889,4000.0,10.5,inputs/profiles/reduceFinal.xml,GOLD]
+ [25.98888888888889,4000.0,10.5,inputs/profiles/reduceFinal.xml,GOLD]
 18:small-Bangalore-center
 17:large-Bangalore-center
 small-Bangalore-center :[18]->0 : [20.0, 0.5]

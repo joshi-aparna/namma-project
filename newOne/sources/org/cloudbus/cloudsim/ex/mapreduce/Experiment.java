@@ -3,19 +3,22 @@ package org.cloudbus.cloudsim.ex.mapreduce;
 import java.util.ArrayList;
 import java.util.List;
 
-import multimapreduce.MultiSimulation;
 
 
 import org.cloudbus.cloudsim.ex.mapreduce.models.request.Request;
 import org.cloudbus.cloudsim.ex.mapreduce.models.request.Requests;
 import org.cloudbus.cloudsim.ex.util.CustomLog;
 
+import GeoDistrMapReduce.GeoMRSimulation;
+import GeoDistrMapReduce.GroupManager;
+import GeoDistrMapReduce.MultiMRSimulation;
+
 public class Experiment
 {
     public List<Workload> workloads = new ArrayList<Workload>();
     public static String currentExperimentName;
-    static String id=MultiSimulation.getCurrentID();
-
+    static int type=GroupManager.getTypeOfMR();
+    
     @Override
     public String toString(){
     	String ret=currentExperimentName;
@@ -24,6 +27,13 @@ public class Experiment
     public static void logExperimentsHeader(Requests requests)
     {
 	// Experiments Plotting
+
+        String id = null;
+		if(type==GroupManager.MULTI)
+        	 id=MultiMRSimulation.getCurrentID();
+        else if(type==GroupManager.GEO)
+        	id=GeoMRSimulation.getCurrentID();
+        
 	CustomLog.redirectToFile("output/plots/" + Experiment.currentExperimentName +id+ ".csv");
 
 	if (Experiment.currentExperimentName.equals("Algorithm_Cost_Deadline")
@@ -48,6 +58,12 @@ public class Experiment
 
     public static void logExperimentsData(Requests requests)
     {
+    	String id = null;
+		if(type==GroupManager.MULTI)
+        	 id=MultiMRSimulation.getCurrentID();
+        else if(type==GroupManager.GEO)
+        	id=GeoMRSimulation.getCurrentID();
+        
 	CustomLog.redirectToFile("output/plots/" + Experiment.currentExperimentName +id+ ".csv", true);
 
 	if (Experiment.currentExperimentName.equals("Algorithm_Cost_Deadline")

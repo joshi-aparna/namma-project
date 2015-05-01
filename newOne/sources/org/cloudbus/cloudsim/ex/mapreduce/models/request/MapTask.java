@@ -8,6 +8,10 @@ import org.cloudbus.cloudsim.ex.mapreduce.models.cloud.DataSource;
 import org.cloudbus.cloudsim.ex.mapreduce.models.cloud.VmInstance;
 import org.cloudbus.cloudsim.ex.util.Textualize;
 
+import GeoDistrMapReduce.GeoMRSimulation;
+import GeoDistrMapReduce.GroupManager;
+import GeoDistrMapReduce.MultiMRSimulation;
+
 @Textualize(properties = {})
 public class MapTask extends Task
 {
@@ -105,7 +109,14 @@ public class MapTask extends Task
 	Cloud cloud = getCloud();
 
 	String currentVmTypeName = vm.name;
-
+	String id=null;
+	if(GroupManager.getTypeOfMR()==GroupManager.GEO){
+		id=GeoMRSimulation.getCurrentID();
+	}
+	else if(GroupManager.getTypeOfMR()==GroupManager.MULTI){
+		id=MultiMRSimulation.getCurrentID();
+	}
+	 if(GroupManager.getTypeOfMR()!=GroupManager.GEO|| id.equals("ReducePhaseTwo") ){
 	if (intermediateData.containsKey(reduceTask.name))
 	{
 	    int intermediateDataSizeInMegaByte = intermediateData.get(reduceTask.name);
@@ -137,6 +148,7 @@ public class MapTask extends Task
 		e.printStackTrace();
 	    }
 	}
+	 }
 	return 0;
     }
 

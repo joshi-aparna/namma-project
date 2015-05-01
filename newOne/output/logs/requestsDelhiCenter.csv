@@ -1,1 +1,2 @@
 ExperimentNumber,WorkloadNumber,     Id,                   J,UserClass,              Policy,CloudDeploymentModel,  Deadline,    Budget,ExecutionTime,      Cost,  IsDeadlineViolated,    IsBudgetViolated,NumberOfVMs,          LogMessage
+               1,             1,     14,             J={1-1},     GOLD,          BBDecision,              Public,   4000.00,     10.50,    200025.79,      0.50,YES! (196025.7888888889 seconds) over deadline,  No ($10.0) savings,          1,    By Decision Tree

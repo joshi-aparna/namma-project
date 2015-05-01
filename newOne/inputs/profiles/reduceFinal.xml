@@ -1,1 +1,1 @@
-<?xml version="1.0" ?><Job><DataSourceName>S3-sensors</DataSourceName><ReduceTasks><ReduceTask name="reduce"><ReduceMillionInstructions>10000</ReduceMillionInstructions><OutputDataSize>10</OutputDataSize></ReduceTask></ReduceTasks></Job>
+<?xml version="1.0" ?><Job><DataSourceName>S3-sensors</DataSourceName><ReduceTasks><ReduceTask name="reduce"><ReduceMillionInstructions>10000</ReduceMillionInstructions><OutputDataSize>45</OutputDataSize></ReduceTask></ReduceTasks></Job>

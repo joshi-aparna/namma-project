@@ -4,8 +4,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import multimapreduce.MultiSimulation;
-import multimapreduce.OutputClass;
 
 import org.cloudbus.cloudsim.Cloudlet;
 import org.cloudbus.cloudsim.DatacenterBroker;
@@ -30,14 +28,22 @@ import org.cloudbus.cloudsim.lists.VmList;
 
 import GeoDistrMapReduce.GeoMRSimulation;
 import GeoDistrMapReduce.GroupManager;
+import GeoDistrMapReduce.MultiMRSimulation;
 
 public class MapReduceEngine extends DatacenterBroker {
 
     public int currentWorkloadNumber;
     public int currentExperimentNumber;
-    static String id=MultiSimulation.getCurrentID();
+    static String id;
+    static int type=GroupManager.getTypeOfMR();
     public MapReduceEngine() throws Exception {
 	super("MapReduceEngine");
+	
+	if(type==GroupManager.MULTI)
+    	 id=MultiMRSimulation.getCurrentID();
+    else if(type==GroupManager.GEO)
+    	id=GeoMRSimulation.getCurrentID();
+    
     }
 
     private Cloud cloud;
@@ -66,14 +72,16 @@ public class MapReduceEngine extends DatacenterBroker {
 		    for (Task task : request.job.mapTasks)
 			task.mapReduceEngine = this;
 		}
-		
+	 if(GroupManager.getTypeOfMR()!=GroupManager.GEO|| id.equals("ReducePhaseTwo") ){
 	    submitCloudletList(request.job.reduceTasks);
 	    //Set the MapReduce Engine referance to all reduce tasks.
-	   
+	  
 	    for (Task task : request.job.reduceTasks)
 		task.mapReduceEngine = this;
+	   }
 	}
     }
+    
 
     @Override
     public void processEvent(SimEvent ev) {
@@ -179,7 +187,7 @@ public class MapReduceEngine extends DatacenterBroker {
 	else
 	{
 		//---------Namma-Project:if it is reducephasetwo, also provision vm for reduceonly tasks-----------------------------------
-		if(MultiSimulation.getCurrentID().equals("ReducePhaseTwo")){
+		if(id.equals("ReducePhaseTwo")){
 			System.out.println("in mapreduce engine, submitting vm list for reduce only jobs also");
 			submitVmList(request.reduceOnlyVmProvisionList);
 		}
@@ -215,7 +223,7 @@ public class MapReduceEngine extends DatacenterBroker {
 		}
 	    }
 	    //------------Namma-Project:If it is reduce phase two, also send vm for reduce only tasks----------------------------
-	    if(MultiSimulation.getCurrentID().equals("ReducePhaseTwo")){
+	    if(id.equals("ReducePhaseTwo")){
 	    	  for (VmInstance vm : request.reduceOnlyVmProvisionList) {
 	    			if (cloudDatacenter.isVMInCloudDatacenter(vm.vmTypeId)) {
 	    			    Log.printLine(CloudSim.clock() + ": " + getName() + ": creating VM #" + vm.getId() + " in "
@@ -388,11 +396,7 @@ public class MapReduceEngine extends DatacenterBroker {
 	    startReducePhase(request);
 	    return;
 		}
-		//
-		if(GroupManager.type==GroupManager.GEO){
-			GeoMRSimulation.createOutputClass(requests);
-			return;
-		}
+		
 	}
 	// FINISHED NEW CODE
 
@@ -487,8 +491,8 @@ public class MapReduceEngine extends DatacenterBroker {
 	
     }
 
-    public ArrayList<OutputClass> printInConsole() {
-    	ArrayList<OutputClass> outputclasslist=new ArrayList<OutputClass>();
+    public void printInConsole() {
+    
 	DecimalFormat dft = new DecimalFormat("000000.00");
 	String indent = "\t";
 	Log.printLine("========== MAPREDUCE EXECUTION SUMMARY ==========");
@@ -496,6 +500,9 @@ public class MapReduceEngine extends DatacenterBroker {
 		+ "Submission Time" + indent + "Start Time" + indent + "Execution Time (s)" + indent + "Finish Time"
 		+ indent + "VM ID" + indent + "VM Type");
 	for (Task task : requests.getAllTasks()) {
+		if(task instanceof ReduceTask && GroupManager.getTypeOfMR()==GroupManager.GEO && !id.equals("ReducePhaseTwo")){
+			continue;
+		}
 	    Log.print(" = " + task.requestId + indent + indent + task.getCloudletId() + indent);
 	    if (task instanceof MapTask)
 		Log.print("Map");
@@ -514,8 +521,9 @@ public class MapReduceEngine extends DatacenterBroker {
 	    }
 	    else
 		Log.printLine();
+		}
 
-	}
+	
 	Log.printLine();
 
 	for (Request request : requests.requests) {
@@ -542,29 +550,13 @@ public class MapReduceEngine extends DatacenterBroker {
 	    Log.printLine("= Cost: $" + request.getCost());
 	    Log.printLine("= Message: " + request.getLogMessage());
 	    Log.printLine();
-	    //--------------------------------------------
-	    double finishtime=-1;
-	    int size=0;
-	    for(Request r:requests.requests){
-	    	for(ReduceTask rt:r.job.reduceTasks){
-	    		System.out.println("reduce output mb="+rt.getOutputMB());
-	    		size+=rt.getOutputMB();
-	    		
-	    	}
-	    }
-	    for(Task t:requests.getAllTasks()){
-    		
-    		if(t.getFinishTime()>finishtime)
-    			finishtime=t.getFinishTime();
-    	}
-	    //--------------------------------------------*/
-	    outputclasslist.add(new OutputClass(request.getCost(),request.budget,finishtime,size,MultiSimulation.getCurrentID()));
-	    
-	    
+	    if(type==GroupManager.MULTI)
+	    	MultiMRSimulation.createOutputClass(request);
+	    else if(type==GroupManager.GEO)
+	    	GeoMRSimulation.createOutputClass(request);
 	}
 	Log.printLine("========== END OF SUMMARY =========");
 	Log.printLine();
-	return outputclasslist;
     }
 
 }

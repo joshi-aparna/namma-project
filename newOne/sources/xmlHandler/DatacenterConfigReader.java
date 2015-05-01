@@ -3,11 +3,12 @@ package xmlHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-import multimapreduce.DatacenterConfig;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import GeoDistrMapReduce.DatacenterConfig;
 
 public class DatacenterConfigReader extends DefaultHandler {
 
