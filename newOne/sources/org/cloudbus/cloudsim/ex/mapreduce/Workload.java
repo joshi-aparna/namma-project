@@ -16,13 +16,20 @@ public class Workload
     CloudDeploymentModel cloudDeploymentModel = CloudDeploymentModel.Hybrid;
     Map<UserClass, Double> userClassAllowedPercentage = new HashMap<UserClass, Double>();
     Requests requests;
-
+    //--------------------------
     public String getPolicy(){
     	return policy;
     }
     public String getCDM(){
     	return cloudDeploymentModel.toString();
     }
+    public Map<UserClass,Double> getUCP(){
+    	return userClassAllowedPercentage;
+    }
+    public Requests getRequests(){
+    	return requests;
+    }
+    //------------------------*/
     public Workload(String policy, String cloudDeploymentModel, Map<String, Double> userClassAllowedPercentage,
 	    ArrayList<Request> requests)
     {

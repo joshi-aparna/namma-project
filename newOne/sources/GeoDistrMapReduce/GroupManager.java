@@ -27,8 +27,16 @@ public class GroupManager {
 	public final static int GEO=3;
 	
 	
-	  public static int type=GEO;
+	  public static int type=COPY;
 	  
+	  public static String getWorkFile(String id){
+		  for(DatacenterConfig job:getDatacenterconfiglist()){
+			  if((job.getID()).equals(id)){
+				  return job.getWorkFile();
+			  }
+		  }
+		  return null;
+	  }
 	  
 	  public static void readDataconfigFile(String DatacenterConfigFile) {
 		    SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
@@ -59,10 +67,7 @@ public class GroupManager {
 		 double time=0;
 		  for(DatacenterConfig d:getDatacenterconfiglist()){
 			  if(!(d.getID()).equals(selectedDc.getID())){
-				  System.out.println("Transferring from "+d.getID()+" to "+selectedDc.getID());
-				  double in=selectedDc.getInMbps();
-				  double out=d.getOutMbps();
-				  double speed=(in<out)?in:out;
+				 double speed=getDataTransferSpeed(selectedDc, d);
 				  double dsize=0;
 				  for(OutputClass oc:outputclasslist){
 					  if((oc.getDcId()).equals(d.getID())){
@@ -74,6 +79,12 @@ public class GroupManager {
 		  }
 		  return time;
 		  
+	  }
+	  public static double getDataTransferSpeed(DatacenterConfig into,DatacenterConfig outof){
+		  System.out.println("Transferring from "+outof.getID()+" to "+into.getID());
+		  double in=into.getInMbps();
+		  double out=outof.getOutMbps();
+		  return (in<out)?in:out;
 	  }
 	  public static int getTypeOfMR(){
 		  if(type==MULTI)
@@ -95,6 +106,10 @@ public class GroupManager {
 		  else if(type==GEO){
 			  System.out.println("for geo simulation, number of datacenters found="+getNumberOfDatacenters());
 				GeoMRSimulation.main();
+		  }
+		  else if(type==COPY){
+			  System.out.println("for copy simulation, number of datacenters found="+getNumberOfDatacenters());
+				CopyMRSimulation.main();
 		  }
 			
 		}

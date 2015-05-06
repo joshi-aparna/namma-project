@@ -8,8 +8,6 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 import org.cloudbus.cloudsim.ex.mapreduce.Properties;
 import org.cloudbus.cloudsim.Log;
 import org.cloudbus.cloudsim.ex.mapreduce.Configuration;
@@ -32,14 +30,7 @@ public class MultiMRSimulation {
 	}
 
 	
-	 public static String getWorkFile(String id){
-		  for(DatacenterConfig job:GroupManager.getDatacenterconfiglist()){
-			  if((job.getID()).equals(id)){
-				  return job.getWorkFile();
-			  }
-		  }
-		  return null;
-	  }
+	
 	  public static void main()   {
 		  
 		  for(final DatacenterConfig job:GroupManager.getDatacenterconfiglist()){
@@ -89,17 +80,7 @@ public class MultiMRSimulation {
 			  }
 			  
 			  //---------------Reading experiment for the selected dc-----------
-			  Experiment experiment =null;
-			    SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
-			    try {
-			        SAXParser saxParser = saxParserFactory.newSAXParser();
-			        ExperimentParser handler = new ExperimentParser();
-			        saxParser.parse(new File("experiments/"+exFileNameSelectedDc), handler);
-			        experiment = handler.getExperiment();
-			    }catch(Exception e){
-			    	System.out.println("reading experiment file in multisimulation.java e=");
-			    	e.printStackTrace();
-			    }
+			  Experiment experiment =ExperimentParser.getExperiment("experiments/"+exFileNameSelectedDc);
 			    String policy=experiment.workloads.get(0).getPolicy();
 			    String cdm=experiment.workloads.get(0).getCDM();
 			    System.out.println("=================policy="+policy+"  cdm="+cdm);

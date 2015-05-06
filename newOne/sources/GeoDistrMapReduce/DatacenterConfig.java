@@ -5,6 +5,13 @@ public class DatacenterConfig {
 	private String workfile;
 	private double inmbps;
 	private double outmbps;
+	public DatacenterConfig(){}
+	DatacenterConfig(String id, String workfile, double in, double out){
+		this.id=id;
+		this.workfile=workfile;
+		this.inmbps=in;
+		this.outmbps=out;
+	}
 	public String getID(){
 		return id;
 	}

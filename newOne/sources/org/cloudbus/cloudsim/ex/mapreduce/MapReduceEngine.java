@@ -26,6 +26,7 @@ import org.cloudbus.cloudsim.ex.mapreduce.policy.Policy;
 import org.cloudbus.cloudsim.ex.util.CustomLog;
 import org.cloudbus.cloudsim.lists.VmList;
 
+import GeoDistrMapReduce.CopyMRSimulation;
 import GeoDistrMapReduce.GeoMRSimulation;
 import GeoDistrMapReduce.GroupManager;
 import GeoDistrMapReduce.MultiMRSimulation;
@@ -43,7 +44,8 @@ public class MapReduceEngine extends DatacenterBroker {
     	 id=MultiMRSimulation.getCurrentID();
     else if(type==GroupManager.GEO)
     	id=GeoMRSimulation.getCurrentID();
-    
+    else if(type==GroupManager.COPY)
+    	id=CopyMRSimulation.getCurrentID();
     }
 
     private Cloud cloud;

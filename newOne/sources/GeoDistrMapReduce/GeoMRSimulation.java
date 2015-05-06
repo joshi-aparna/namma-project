@@ -5,11 +5,6 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
-
 import org.cloudbus.cloudsim.Log;
 import org.cloudbus.cloudsim.ex.mapreduce.Experiment;
 import org.cloudbus.cloudsim.ex.mapreduce.Properties;
@@ -92,17 +87,7 @@ public class GeoMRSimulation {
 		  }
 		  
 		  //---------------Reading experiment for the selected dc-----------
-		  Experiment experiment =null;
-		    SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
-		    try {
-		        SAXParser saxParser = saxParserFactory.newSAXParser();
-		        ExperimentParser handler = new ExperimentParser();
-		        saxParser.parse(new File("experiments/"+exFileNameSelectedDc), handler);
-		        experiment = handler.getExperiment();
-		    }catch(Exception e){
-		    	System.out.println("reading experiment file in multisimulation.java e=");
-		    	e.printStackTrace();
-		    }
+		  Experiment experiment =ExperimentParser.getExperiment("experiments/"+exFileNameSelectedDc);
 		    String policy=experiment.workloads.get(0).getPolicy();
 		    String cdm=experiment.workloads.get(0).getCDM();
 		    System.out.println("=================policy="+policy+"  cdm="+cdm);

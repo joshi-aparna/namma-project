@@ -9,7 +9,7 @@
 </UserClassAllowedPercentage>
 <Requests>
 <Request>
-<SubmissionTime>200000</SubmissionTime>
+<SubmissionTime>400000</SubmissionTime>
 <Deadline>4000</Deadline>
 <Budget>10.5</Budget>
 <JobFile>MapReduce_2_1.xml</JobFile>

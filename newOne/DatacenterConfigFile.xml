@@ -12,4 +12,10 @@
 <OutMbps>400</OutMbps>
 <Work>simulation.properties</Work>
 </Datacenter>
+<Datacenter>
+<ID>MumbaiCenter</ID>
+<InMbps>700</InMbps>
+<OutMbps>10</OutMbps>
+<Work>simulation.properties</Work>
+</Datacenter>
 </JobDetails>

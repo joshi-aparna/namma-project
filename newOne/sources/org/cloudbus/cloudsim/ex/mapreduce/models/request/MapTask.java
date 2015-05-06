@@ -8,6 +8,7 @@ import org.cloudbus.cloudsim.ex.mapreduce.models.cloud.DataSource;
 import org.cloudbus.cloudsim.ex.mapreduce.models.cloud.VmInstance;
 import org.cloudbus.cloudsim.ex.util.Textualize;
 
+import GeoDistrMapReduce.CopyMRSimulation;
 import GeoDistrMapReduce.GeoMRSimulation;
 import GeoDistrMapReduce.GroupManager;
 import GeoDistrMapReduce.MultiMRSimulation;
@@ -19,12 +20,13 @@ public class MapTask extends Task
     // <Reduce Task ID, IDSize>
     public Map<String, Integer> intermediateData;
     public int extraTasks = 0;
+    public int dSize=0;
 
     public MapTask(int totalMapTasks, int dSize, int mi, Map<String, Integer> intermediateData)
     {
 	super("map", dSize, mi);
 	this.intermediateData = intermediateData;
-
+	this.dSize=dSize;
 	name = "map-" + getCloudletId();
 
 	extraTasks = totalMapTasks - 1;
@@ -115,6 +117,9 @@ public class MapTask extends Task
 	}
 	else if(GroupManager.getTypeOfMR()==GroupManager.MULTI){
 		id=MultiMRSimulation.getCurrentID();
+	}
+	else if(GroupManager.getTypeOfMR()==GroupManager.COPY){
+		id=CopyMRSimulation.getCurrentID();
 	}
 	 if(GroupManager.getTypeOfMR()!=GroupManager.GEO|| id.equals("ReducePhaseTwo") ){
 	if (intermediateData.containsKey(reduceTask.name))

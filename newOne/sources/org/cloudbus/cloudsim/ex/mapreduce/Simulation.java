@@ -1,16 +1,11 @@
 package org.cloudbus.cloudsim.ex.mapreduce;
 
-import java.io.File;
+
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Calendar;
 import java.util.Map;
-
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
-
 import org.cloudbus.cloudsim.Log;
 import org.cloudbus.cloudsim.core.CloudSim;
 import org.cloudbus.cloudsim.ex.mapreduce.models.cloud.Cloud;
@@ -21,6 +16,7 @@ import org.cloudbus.cloudsim.ex.mapreduce.models.request.Task;
 import org.cloudbus.cloudsim.ex.mapreduce.models.request.UserClass;
 import org.cloudbus.cloudsim.ex.util.CustomLog;
 
+import GeoDistrMapReduce.CopyMRSimulation;
 import GeoDistrMapReduce.GeoMRSimulation;
 import GeoDistrMapReduce.GroupManager;
 import GeoDistrMapReduce.MultiMRSimulation;
@@ -70,6 +66,8 @@ public class Simulation {
     		id=MultiMRSimulation.getCurrentID();
     	else if(type==GroupManager.GEO)
     		id=GeoMRSimulation.getCurrentID();
+    	else if(type==GroupManager.COPY)
+    		id=CopyMRSimulation.getCurrentID();
     	System.out.println("In simulation.java, id="+id);
     	Configuration.loadProperties(id);
 
@@ -118,18 +116,8 @@ public class Simulation {
 	    System.out.println("!!! in simulation main for loop:  experimentFilename="+experimentFileName);
 	   //--------------------------------------------------------------------------
 	    // Experiment experiment = YamlFile.getRequestsFromYaml(experimentFileName);
-	    Experiment experiment =null;
-	    SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
-	    try {
-	        SAXParser saxParser = saxParserFactory.newSAXParser();
-	        ExperimentParser handler = new ExperimentParser();
-	        saxParser.parse(new File(experimentFileName), handler);
-	        experiment = handler.getExperiment();
-	    }catch(Exception e){
-	    	System.out.println("reading experiment file in simulation.java e=");
-	    	e.printStackTrace();
-	    }
-	    
+	    Experiment experiment =ExperimentParser.getExperiment(experimentFileName);
+	  
 	    
 	   //--------------------------------------------------*/
 	    Experiment.currentExperimentName = experimentFilesName[experimentNumber].split(".yaml")[0];
@@ -179,18 +167,8 @@ public class Simulation {
 	    engine.setCloud(cloud);
 	   //---------------------------------------------------------------
 	    // Experiment Experiments = YamlFile.getRequestsFromYaml(experimentFileName);
-	    Experiment Experiments =null;
-	    SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
-	    try {
-	        SAXParser saxParser = saxParserFactory.newSAXParser();
-	        ExperimentParser handler = new ExperimentParser();
-	        saxParser.parse(new File(experimentFileName), handler);
-	        Experiments = handler.getExperiment();
-	        System.out.println("\n experiment created from xml="+Experiments);
-	    }catch(Exception e){
-	    	System.out.println("reading experiment file in simulation.java e=");
-	    	e.printStackTrace();
-	    }
+	    Experiment Experiments =ExperimentParser.getExperiment(experimentFileName);
+	
 	   //----------------------------------------------------------------*/
 	    requests = Experiments.workloads.get(workloadNumber).requests;
 

@@ -1,7 +1,11 @@
 package xmlHandler;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
  
 import org.cloudbus.cloudsim.ex.mapreduce.Experiment;
 import org.cloudbus.cloudsim.ex.mapreduce.Workload;
@@ -12,9 +16,27 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-public class ExperimentParser extends DefaultHandler {
+public class ExperimentParser {
 
+	public static Experiment getExperiment(String file){
+		Experiment experiment =null;
+	    SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+	    try {
+	        SAXParser saxParser = saxParserFactory.newSAXParser();
+	        Parser handler = new Parser();
+	        saxParser.parse(new File(file), handler);
+	        experiment = handler.getExperiment();
+	        return experiment;
+	    }catch(Exception e){
+	    	System.out.println("reading experiment file in simulation.java e=");
+	    	e.printStackTrace();
+	    }
+	    return null;
+		
+	}
+}
 	
+	class Parser extends DefaultHandler{
 	ArrayList<Workload> workloadlist;
 	Map<String, Double> ucap ;
 	Requests rs;
@@ -161,3 +183,4 @@ public class ExperimentParser extends DefaultHandler {
 	        
 	    }	
 }
+

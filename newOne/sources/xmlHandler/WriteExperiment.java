@@ -9,8 +9,13 @@ import java.util.Map;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
 
+import org.cloudbus.cloudsim.ex.mapreduce.Experiment;
+
 
 public class WriteExperiment {
+	final int start=0;
+	final int end=1;
+	final int both=2;
 	String policy;
 	String clouddeploymentmodel;
 	Map<String, Double> ucap;
@@ -19,7 +24,9 @@ public class WriteExperiment {
 	double budget;
 	String jobFile;
 	String Userclass;
-	
+	public WriteExperiment(Experiment e, int position){
+		
+	}
 	public WriteExperiment(String policy, String cdm, Map<String,Double> map, double sub, double d, double b, String j,String c){
 		this.policy=policy;
 		this.clouddeploymentmodel=cdm;

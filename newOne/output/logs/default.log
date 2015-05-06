@@ -1,11 +1,13 @@
 [[[[[[[ Experiment Number: 1 | Workload Number: 1 ]]]]]]]
- [25.98888888888889,4000.0,10.5,inputs/profiles/reduceFinal.xml,GOLD]
-18:small-Bangalore-center
-17:large-Bangalore-center
-small-Bangalore-center :[18]->0 : [20.0, 0.5]
-large-Bangalore-center :[17]->0 : [12.5, 1.15]
-small-Bangalore-center: candidate solution: [18] : [20.0, 0.5]
-large-Bangalore-center: candidate solution: [17] : [12.5, 1.15]
-small-Bangalore-center: returned solution: [18] : [20.0 seconds, $0.5]
-large-Bangalore-center: returned solution: [17] : [12.5 seconds, $1.15]
-Selected Solution: [18] : [20.0, 0.5]
+ [400211.712,4000.0,10.5,inputs/profiles/CopyMapReduce.xml,GOLD]
+5:small-Bangalore-center
+6:small-Bangalore-center
+3:large-Bangalore-center
+4:large-Bangalore-center
+large-Bangalore-center :[3, 3]->0 : [34.23, 1.45]
+large-Bangalore-center: candidate solution: [3, 3] : [34.23, 1.45]
+small-Bangalore-center :[5, 5]->0 : [44.76, 0.8]
+small-Bangalore-center: candidate solution: [5, 5] : [44.76, 0.8]
+large-Bangalore-center: returned solution: [3, 3] : [34.23 seconds, $1.45]
+small-Bangalore-center: returned solution: [5, 5] : [44.76 seconds, $0.8]
+Selected Solution: [5, 5] : [44.76, 0.8]

@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<Job>
+<DataSourceName>S3-sensors</DataSourceName>
+<MapTasks>
+<MapTask>
+<NumberOfTasks>1</NumberOfTasks>
+<DataSize>256</DataSize>
+<MillionInstructions>10000</MillionInstructions>
+<RTaskId dsize="60">reduce1</RTaskId>
+</MapTask></MapTasks>
+<ReduceTasks>
+<ReduceTask name="reduce">
+<ReduceMillionInstructions>1000</ReduceMillionInstructions>
+<OutputDataSize>15</OutputDataSize>
+</ReduceTask>
+</ReduceTasks>
+</Job>

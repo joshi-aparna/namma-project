@@ -3,7 +3,7 @@ package org.cloudbus.cloudsim.ex.mapreduce.models.request;
 
 public class ReduceTask extends Task {
 
-	private int outmb;
+	public int outmb;
 	public String name;
     public ReduceTask(String name, int mi, int mb) {
 	// reduce task dSize is 0 for now, and it will be updated in Request
