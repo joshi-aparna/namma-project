@@ -1,3 +1,12 @@
+note from namma-project:
+
+the decision algorithm implemented decides the type based on the majority.
+it finds the suitable path for each dc and decides the overall path based on the majority.s
+
+
+
+
+
 Table of Contents
 -----------------
 

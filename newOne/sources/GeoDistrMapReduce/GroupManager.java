@@ -27,7 +27,7 @@ public class GroupManager {
 	public final static int GEO=3;
 	
 	
-	  public static int type=COPY;
+	  public static int type;
 	  
 	  public static String getWorkFile(String id){
 		  for(DatacenterConfig job:getDatacenterconfiglist()){
@@ -98,7 +98,7 @@ public class GroupManager {
 	  
 	  public static void main(String[] args){
 		  readDataconfigFile("DatacenterConfigFile.xml");
-		
+		  type=DecisionAlgorithm.getSuitableMRType(datacenterconfiglist);
 		  if(type==MULTI){
 		  System.out.println("for multimr simulation, number of datacenters found="+getNumberOfDatacenters());
 			MultiMRSimulation.main();

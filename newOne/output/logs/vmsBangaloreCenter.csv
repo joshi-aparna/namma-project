@@ -1,2 +1,2 @@
 ExperimentNumber,WorkloadNumber,RequestId,                   J,UserClass,              Policy,CloudDeploymentModel,     Id,                Name,ExecutionTime,ExecutionCost,     TasksIdAsString
-               1,             1,        8,             J={1-1},     GOLD,          BBDecision,              Public,      5,small-Bangalore-center,        44.76,         0.50,             [10-11]
+               1,             1,       11,             J={1-1},     GOLD,          BBDecision,              Public,      5,small-Bangalore-center,        35.16,         0.50,             [17-18]

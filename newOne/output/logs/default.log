@@ -1,13 +1,13 @@
 [[[[[[[ Experiment Number: 1 | Workload Number: 1 ]]]]]]]
- [400211.712,4000.0,10.5,inputs/profiles/CopyMapReduce.xml,GOLD]
+ [400124.232,4000.0,10.5,inputs/profiles/CopyMapReduce.xml,GOLD]
 5:small-Bangalore-center
 6:small-Bangalore-center
 3:large-Bangalore-center
 4:large-Bangalore-center
-large-Bangalore-center :[3, 3]->0 : [34.23, 1.45]
-large-Bangalore-center: candidate solution: [3, 3] : [34.23, 1.45]
-small-Bangalore-center :[5, 5]->0 : [44.76, 0.8]
-small-Bangalore-center: candidate solution: [5, 5] : [44.76, 0.8]
-large-Bangalore-center: returned solution: [3, 3] : [34.23 seconds, $1.45]
-small-Bangalore-center: returned solution: [5, 5] : [44.76 seconds, $0.8]
-Selected Solution: [5, 5] : [44.76, 0.8]
+small-Bangalore-center :[5, 5]->0 : [35.16, 0.8]
+small-Bangalore-center: candidate solution: [5, 5] : [35.16, 0.8]
+small-Bangalore-center: returned solution: [5, 5] : [35.16 seconds, $0.8]
+large-Bangalore-center :[3, 3]->0 : [25.59, 1.45]
+large-Bangalore-center: candidate solution: [3, 3] : [25.59, 1.45]
+large-Bangalore-center: returned solution: [3, 3] : [25.59 seconds, $1.45]
+Selected Solution: [5, 5] : [35.16, 0.8]

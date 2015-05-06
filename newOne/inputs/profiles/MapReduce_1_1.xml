@@ -3,7 +3,7 @@
 <MapTasks>
 <MapTask>
 <NumberOfTasks>1</NumberOfTasks>
-<DataSize>64</DataSize>
+<DataSize>10</DataSize>
 <MillionInstructions>10000</MillionInstructions>
 <RTaskId dsize="15">reduce1</RTaskId>
 </MapTask>
@@ -11,7 +11,7 @@
 <ReduceTasks>
 <ReduceTask name="reduce1">
 <ReduceMillionInstructions>1000</ReduceMillionInstructions>
-<OutputDataSize>5</OutputDataSize>
+<OutputDataSize>15</OutputDataSize>
 </ReduceTask>
 </ReduceTasks>
 </Job>
